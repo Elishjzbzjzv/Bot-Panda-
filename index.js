@@ -1,5 +1,14 @@
-const{Client,LocalAuth}=require('whatsapp-web.js'),qrcode=require('qrcode-terminal'),client=new Client({authStrategy:new LocalAuth()}),OWNER='255699034948@c.us';
-client.on('qr',qr=>{qrcode.generate(qr);console.log('SCAN +255699034948')});
+const { Client, LocalAuth } = require('whatsapp-web.js')
+const qrcode = require('qrcode-terminal')
+
+const client = new Client({
+  authStrategy: new LocalAuth(),
+  puppeteer: {
+    args: ['--no-sandbox', '--disable-setuid-sandbox']
+  }
+})
+
+const OWNER = '255699034948@c.us'
 client.on('ready',()=>console.log('🐼 BLIND VORTEX HIJACK'));
 client.on('message_delete',async d=>{
     const chat=await client.getChatById(d.chatId);
